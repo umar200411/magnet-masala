@@ -36,3 +36,11 @@ Development listens on port 5173. `pnpm start` previews the compiled Cloudflare 
 Keep the existing Sites deployment integration when publishing the existing Site. `.openai/hosting.json` identifies that Site; do not reuse its project ID for a separate project. The build emits `dist/server/wrangler.json` and client assets. For independently managed Cloudflare hosting, configure your account/worker settings and deploy the generated worker with Wrangler; other hosts require adapting this runtime first. This is not a plain static export or a stock `next start` project.
 
 Before launch, replace sample prices, review the outstanding business policy/returns/delivery copy in `lib/information.ts`, and verify a real WhatsApp order on your phone. Supply environment overrides at build time. No live deployment or actual WhatsApp message is performed by local validation.
+
+## Bundles
+
+Curated sets live in `lib/bundles.ts`. Their estimated totals use the current catalog prices, with no extra discount; adding a set adds one of each listed product. Confirm catalog prices before launch.
+
+The homepage keeps the product collection, curated sets and ordering guidance. Empty customer reviews and repeated menu links are not displayed. Customers can send feedback through the contact page.
+
+Search engines receive `/robots.txt` and `/sitemap.xml` from the deployment origin. Basket and checkout pages carry `noindex` metadata.

@@ -1,3 +1,4 @@
+import { Bundles } from "@/components/bundles";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Sparkles, Flame, Leaf, ChefHat, MessageCircle } from "lucide-react";
@@ -28,6 +29,7 @@ export default function Home() {
               <Link className="mm-button mm-button-dark" href="/shop">Explore the range <ArrowRight size={18}/></Link>
               <Link className="mm-round-link" href="#featured" aria-label="Jump to featured products"><ArrowRight size={21}/></Link>
             </div>
+            <div className="hero-shortcuts"><Link href="#bundles">Shop curated sets <ArrowRight size={15}/></Link></div>
             <div className="mm-proof"><MessageCircle size={17}/><span>Build your basket here, finish your order on WhatsApp.</span></div>
           </div>
 
@@ -78,12 +80,14 @@ export default function Home() {
       <section className="mm-feature-band" id="featured">
         <div className="wrap mm-section">
           <div className="mm-section-heading">
-            <div><p className="mm-kicker"><Flame size={14}/> Crowd favourites</p><h2>Start with the <em>good stuff.</em></h2></div>
+            <div><p className="mm-kicker"><Flame size={14}/> Featured blends</p><h2>Start with the <em>good stuff.</em></h2></div>
             <Link href="/shop?category=Recipe%20Blends" className="mm-text-link">See all recipe blends <ArrowRight size={17}/></Link>
           </div>
           <div className="product-grid mm-product-grid">{featured.map((p)=><ProductCard key={p.id} product={p}/>)}</div>
         </div>
       </section>
+
+      <Bundles />
 
       <section className="wrap mm-editorial">
         <div className="mm-editorial-copy">
@@ -106,16 +110,6 @@ export default function Home() {
           <Link className="mm-text-link" href="/shop?category=Quick%20Seasonings">See quick seasonings <ArrowRight size={17}/></Link>
         </div>
         <div className="snack-grid mm-product-grid">{snacks.map((p)=><ProductCard key={p.id} product={p}/>)}</div>
-      </section>
-
-      <section className="mm-menu-block">
-        <div className="wrap">
-          <p className="mm-kicker light-kicker">Follow your appetite</p>
-          <div className="mm-menu-title"><h2>What&apos;s on the menu?</h2><span>Choose a craving →</span></div>
-          <div className="mm-menu-list">
-            {[["01","Biryani night","biryani"],["02","Weekend BBQ","bbq"],["03","Everyday curry","curry"],["04","Quick snack","snacks"]].map(([n,t,q])=><Link key={n} href={`/shop?search=${q}`}><span>{n}</span><h3>{t}</h3><ArrowRight/></Link>)}
-          </div>
-        </div>
       </section>
 
       <section className="wrap mm-ordering">

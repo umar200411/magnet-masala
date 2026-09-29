@@ -6,9 +6,9 @@ import { join } from 'node:path';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
 const compiled = mkdtempSync(join(tmpdir(), 'magnet-order-tests-'));
-let orderMessage, whatsappUrl, products;
+let orderMessage, whatsappUrl, products, originalPrice, bundles, bundleProducts, bundleTotal;
 try {
-  for (const name of ['catalog', 'whatsapp']) {
+  for (const name of ['catalog', 'whatsapp', 'bundles']) {
     const source = readFileSync(new URL(`../lib/${name}.ts`, import.meta.url), 'utf8');
     writeFileSync(join(compiled, `${name}.cjs`), ts.transpileModule(source, {
       compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
@@ -16,7 +16,8 @@ try {
   }
   const require = createRequire(import.meta.url);
   ({ orderMessage, whatsappUrl } = require(join(compiled, 'whatsapp.cjs')));
-  ({ products } = require(join(compiled, 'catalog.cjs')));
+  ({ products, originalPrice } = require(join(compiled, 'catalog.cjs')));
+  ({ bundles, bundleProducts, bundleTotal } = require(join(compiled, 'bundles.cjs')));
 } finally {
   rmSync(compiled, { recursive: true, force: true });
 }
@@ -51,4 +52,26 @@ test('invalid items, quantities and destinations are rejected', () => {
 test('all products have unique identifiers and positive sample prices', () => {
   assert.equal(new Set(products.map(p => p.id)).size, products.length);
   assert.ok(products.every(p => Number.isFinite(p.price) && p.price > 0));
+});
+
+
+test('bundle totals match their individual basket and WhatsApp items', () => {
+  for (const bundle of bundles) {
+    const selected = bundleProducts(bundle.ids);
+    assert.equal(new Set(bundle.ids).size, bundle.ids.length);
+    assert.equal(bundleTotal(bundle.ids), selected.reduce((sum, product) => sum + product.price, 0));
+    const message = orderMessage(bundle.ids.map(id => ({ id, quantity: 1 })));
+    for (const product of selected) assert.ok(message.includes(product.name));
+    assert.ok(message.includes(`Rs. ${bundleTotal(bundle.ids).toLocaleString("en-PK")}`));
+  }
+  assert.throws(() => bundleProducts(['not-a-product']));
+});
+
+
+test('20% discount on each reference price preserves the existing sale price exactly', () => {
+  for (const product of products) {
+    assert.equal(Math.round(originalPrice(product) * 100) * 80 / 100, Math.round(product.price * 100));
+  }
+  assert.equal(originalPrice({ price: 350 }), 437.5);
+  assert.equal(originalPrice({ price: null }), null);
 });

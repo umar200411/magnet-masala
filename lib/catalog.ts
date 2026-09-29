@@ -292,3 +292,5 @@ export const products:Product[]=// Sample prices in PKR; edit each product price
   }
 ];
 export const priceLabel=(p:Product)=>p.price===null?"Price on request":`Rs. ${p.price.toLocaleString("en-PK")}`;
+// Keep price as the payable sale price; derive the reference price in paisa.
+export const originalPrice = (product: Product): number | null => product.price === null ? null : Math.round(product.price * 100 / 0.8) / 100;
