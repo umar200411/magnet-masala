@@ -1,0 +1,1 @@
+import {CartPage} from "@/components/checkout";export const metadata={title:"Cart"};export default function Page(){return <main id="main" className="wrap page"><p className="eyebrow red">MAGNET MASALA</p><h1 className="commerce-title">Your basket</h1><CartPage/></main>}

@@ -1,0 +1,2 @@
+export const site={name:"Magnet Masala",currency:"PKR",whatsapp:(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923292200447").replace(/[\s()+-]/g, ""),email:"magnetmasala2026@gmail.com",phone:"",instagram:"",facebook:"",address:"",announcement:"Your favourite masalas. Order directly on WhatsApp.",deliveryNote:"Delivery charges will be confirmed on WhatsApp."};
+export const whatsappReady= /^[1-9]\d{7,14}$/.test(site.whatsapp);
