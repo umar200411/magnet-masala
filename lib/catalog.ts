@@ -1,296 +1,62 @@
-export type Product = {id:string;slug:string;name:string;category:string;image:string;weight:string;price:number|null;tags:string[];featured:boolean;shortDescription:string;recommendedFor:string[];mediaScale:number;gallery?:{src:string;alt:string}[];ingredients?:string;directions?:string;storageInformation?:string};
-export const categories=["Recipe Blends","Everyday Spices","Quick Seasonings"];
-export const products:Product[]=// Sample prices in PKR; edit each product price before launch.
-[
-  {
-    "id": "biryani-masala",
-    "slug": "biryani-masala",
-    "name": "Biryani Masala",
-    "category": "Recipe Blends",
-    "image": "/products/biryani-masala.jpg",
-    "weight": "125 g",
-    "price": 350,
-    "tags": [
-      "Rice",
-      "biryani",
-      "weekend cooking"
-    ],
-    "featured": true,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "Rice",
-      "biryani",
-      "weekend cooking"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "chicken-tikka-masala",
-    "slug": "chicken-tikka-masala",
-    "name": "Chicken Tikka Masala",
-    "category": "Recipe Blends",
-    "image": "/products/chicken-tikka-masala.jpg",
-    "weight": "125 g",
-    "price": 350,
-    "tags": [
-      "BBQ",
-      "chicken",
-      "tikka"
-    ],
-    "featured": true,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "BBQ",
-      "chicken",
-      "tikka"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "seekh-kabab-masala",
-    "slug": "seekh-kabab-masala",
-    "name": "Seekh Kabab Masala",
-    "category": "Recipe Blends",
-    "image": "/products/seekh-kabab-masala.jpg",
-    "weight": "125 g",
-    "price": 350,
-    "tags": [
-      "BBQ",
-      "kabab"
-    ],
-    "featured": true,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "BBQ",
-      "kabab"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "garam-masala",
-    "slug": "garam-masala",
-    "name": "Garam Masala",
-    "category": "Recipe Blends",
-    "image": "/products/garam-masala.jpg",
-    "weight": "125 g",
-    "price": 450,
-    "tags": [
-      "Curry",
-      "everyday cooking"
-    ],
-    "featured": true,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "Curry",
-      "everyday cooking"
-    ],
-    "mediaScale": 1.25
-  },
-  {
-    "id": "fish-masala",
-    "slug": "fish-masala",
-    "name": "Fish Masala",
-    "category": "Recipe Blends",
-    "image": "/products/fish-masala.jpg",
-    "weight": "125 g",
-    "price": 350,
-    "tags": [
-      "Fish",
-      "seafood"
-    ],
-    "featured": false,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "Fish",
-      "seafood"
-    ],
-    "mediaScale": 1.25
-  },
-  {
-    "id": "salan-masala",
-    "slug": "salan-masala",
-    "name": "Salan Masala",
-    "category": "Recipe Blends",
-    "image": "/products/salan-masala.jpg",
-    "weight": "125 g",
-    "price": 300,
-    "tags": [
-      "Curry",
-      "salan"
-    ],
-    "featured": false,
-    "shortDescription": "For the dishes you love coming home to.",
-    "recommendedFor": [
-      "Curry",
-      "salan"
-    ],
-    "mediaScale": 1.25
-  },
-  {
-    "id": "coriander-powder",
-    "slug": "coriander-powder",
-    "name": "Coriander Powder",
-    "category": "Everyday Spices",
-    "image": "/products/coriander-powder.jpg",
-    "weight": "125 g",
-    "price": 250,
-    "tags": [
-      "Kitchen essentials",
-      "dhania"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "dhania"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "cumin-powder",
-    "slug": "cumin-powder",
-    "name": "Cumin Powder",
-    "category": "Everyday Spices",
-    "image": "/products/cumin-powder.jpg",
-    "weight": "125 g",
-    "price": 450,
-    "tags": [
-      "Kitchen essentials",
-      "zeera"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "zeera"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "turmeric-powder",
-    "slug": "turmeric-powder",
-    "name": "Turmeric Powder",
-    "category": "Everyday Spices",
-    "image": "/products/turmeric-powder.jpg",
-    "weight": "125 g",
-    "price": 250,
-    "tags": [
-      "Kitchen essentials",
-      "haldi"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "haldi"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "black-pepper-powder",
-    "slug": "black-pepper-powder",
-    "name": "Black Pepper Powder",
-    "category": "Everyday Spices",
-    "image": "/products/black-pepper-powder.jpg",
-    "weight": "125 g",
-    "price": 650,
-    "tags": [
-      "Kitchen essentials",
-      "kali mirch"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "kali mirch"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "garlic-powder",
-    "slug": "garlic-powder",
-    "name": "Garlic Powder",
-    "category": "Everyday Spices",
-    "image": "/products/garlic-powder.jpg",
-    "weight": "125 g",
-    "price": 400,
-    "tags": [
-      "Kitchen essentials",
-      "lehsan"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "lehsan"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "ginger-powder",
-    "slug": "ginger-powder",
-    "name": "Ginger Powder",
-    "category": "Everyday Spices",
-    "image": "/products/ginger-powder.jpg",
-    "weight": "125 g",
-    "price": 400,
-    "tags": [
-      "Kitchen essentials",
-      "adrak"
-    ],
-    "featured": false,
-    "shortDescription": "A familiar essential for your kitchen shelf.",
-    "recommendedFor": [
-      "Kitchen essentials",
-      "adrak"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "macaroni-masala-powder",
-    "slug": "macaroni-masala-powder",
-    "name": "Macaroni Masala Powder",
-    "category": "Quick Seasonings",
-    "image": "/products/macaroni-masala-powder.jpg",
-    "weight": "125 g",
-    "price": 300,
-    "tags": [
-      "Pasta",
-      "macaroni",
-      "snacks"
-    ],
-    "featured": false,
-    "shortDescription": "For snack breaks with a little more flavour.",
-    "recommendedFor": [
-      "Pasta",
-      "macaroni",
-      "snacks"
-    ],
-    "mediaScale": 1
-  },
-  {
-    "id": "fries-masala",
-    "slug": "fries-masala",
-    "name": "Fries Masala",
-    "category": "Quick Seasonings",
-    "image": "/products/fries-masala.jpg",
-    "weight": "125 g",
-    "price": 250,
-    "tags": [
-      "Fries",
-      "potatoes",
-      "snacks"
-    ],
-    "featured": false,
-    "shortDescription": "For snack breaks with a little more flavour.",
-    "recommendedFor": [
-      "Fries",
-      "potatoes",
-      "snacks"
-    ],
-    "mediaScale": 1
-  }
+export type ProductVariant = {
+  id: string;
+  weight: string;
+  originalPrice: number;
+  salePrice: number;
+  image?: string;
+  inStock: boolean;
+};
+
+export type Product = {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  image: string;
+  variants: ProductVariant[];
+  tags: string[];
+  featured: boolean;
+  shortDescription: string;
+  recommendedFor: string[];
+  mediaScale: number;
+  gallery?: { src: string; alt: string }[];
+  ingredients?: string;
+  directions?: string;
+  storageInformation?: string;
+};
+
+const v = (id: string, weight: string, originalPrice: number, salePrice: number, image?: string, inStock = true): ProductVariant => ({ id, weight, originalPrice, salePrice, image, inStock });
+const product = (id: string, name: string, category: string, image: string, variants: ProductVariant[], description: string, tags: string[], featured = false, mediaScale = 1): Product => ({ id, slug: id, name: `Magnet ${name}`, category, image, variants, shortDescription: description, tags, recommendedFor: tags, featured, mediaScale });
+
+export const categories = ["Recipe Blends", "Everyday Spices", "Quick Seasonings"];
+export const products: Product[] = [
+  product("biryani-masala", "Biryani Masala", "Recipe Blends", "/products/biryani-masala.jpg", [v("biryani-125", "125g", 400, 320), v("biryani-250", "250g", 690, 550, "/products/biryani-masala-250gram.jpg")], "Premium quality spice mix", ["Rice", "biryani", "weekend cooking"], true),
+  product("chicken-tikka-masala", "Chicken Tikka Masala", "Recipe Blends", "/products/chicken-tikka-masala.jpg", [v("chicken-tikka-125", "125g", 445, 356), v("chicken-tikka-250", "250g", 690, 550, "/products/chikan-tikka-masala250gram.jpg")], "BBQ and grill spice mix", ["BBQ", "chicken", "tikka"], true),
+  product("seekh-kabab-masala", "Seekh Kabab Masala", "Recipe Blends", "/products/seekh-kabab-masala.jpg", [v("seekh-kabab-125", "125g", 400, 320), v("seekh-kabab-250", "250g", 650, 520, "/products/seekh-kabab-masala-250gram.jpg")], "For the dishes you love coming home to.", ["BBQ", "kabab"], true),
+  product("garam-masala", "Garam Masala", "Recipe Blends", "/products/garam-masala.jpg", [v("garam-125", "125g", 550, 440), v("garam-250", "250g", 1050, 840, "/products/garam-masala-250gram.jpg")], "Premium spice blend", ["Curry", "everyday cooking"], true, 1.25),
+  product("fish-masala", "Fish Masala", "Recipe Blends", "/products/fish-masala.jpg", [v("fish-125", "125g", 375, 300), v("fish-250", "250g", 600, 480, "/products/fish-masala-250gram.jpg")], "Special seafood spice mix", ["Fish", "seafood"] , false, 1.25),
+  product("salan-masala", "Salan Masala", "Recipe Blends", "/products/salan-masala.jpg", [v("salan-125", "125g", 360, 288), v("salan-250", "250g", 680, 550, "/products/salan-masala-250gram.jpg")], "Premium Curry spice mix", ["Curry", "salan"], false, 1.25),
+  product("coriander-powder", "Coriander Powder", "Everyday Spices", "/products/coriander-powder.jpg", [v("coriander-125", "125g", 200, 160)], "A familiar essential for your kitchen shelf.", ["Kitchen essentials", "dhania"]),
+  product("cumin-powder", "Cumin Powder", "Everyday Spices", "/products/cumin-powder.jpg", [v("cumin-125", "125g", 465, 372)], "A familiar essential for your kitchen shelf.", ["Kitchen essentials", "zeera"]),
+  product("turmeric-powder", "Turmeric Powder", "Everyday Spices", "/products/turmeric-powder.jpg", [v("turmeric-125", "125g", 250, 200), v("turmeric-250", "250g", 450, 360, "/products/turmeric-powder-250gram.jpg")], "Pure and natural Haldi powder", ["Kitchen essentials", "haldi"]),
+  product("black-pepper-powder", "Black Pepper Powder", "Everyday Spices", "/products/black-pepper-powder.jpg", [v("black-pepper-125", "125g", 535, 428)], "A familiar essential for your kitchen shelf.", ["Kitchen essentials", "kali mirch"]),
+  product("garlic-powder", "Garlic Powder", "Everyday Spices", "/products/garlic-powder.jpg", [v("garlic-125", "125g", 435, 348), v("garlic-250", "250g", 800, 640, "/products/garlic-powder-250gram.jpg")], "Premium and natural Garlic (Lehsan) powder", ["Kitchen essentials", "lehsan"]),
+  product("ginger-powder", "Ginger Powder", "Everyday Spices", "/products/ginger-powder.jpg", [v("ginger-125", "125g", 440, 352)], "A familiar essential for your kitchen shelf.", ["Kitchen essentials", "adrak"]),
+  product("cheese-powder", "Cheese Powder", "Quick Seasonings", "/products/cheese-powder-125gram.jpg", [v("cheese-125", "125g", 440, 352, "/products/cheese-powder-125gram.jpg"), v("cheese-250", "250g", 760, 610, "/products/cheese-powder.jpg")], "Premium flavoring spice mix", ["Cheese", "snacks"]),
+  product("red-chilli-powder", "Red Chilli Powder", "Everyday Spices", "/products/red-chilli-powder-125gram.jpg", [v("red-chilli-125", "125g", 200, 160, "/products/red-chilli-powder-125gram.jpg"), v("red-chilli-250", "250g", 350, 280, "/products/red-chilli-powder-250gram.jpg")], "Pure and premium spice", ["Kitchen essentials", "mirch"]),
+  product("chaat-masala", "Chaat Masala", "Quick Seasonings", "/products/chaat-masala-125gram.jpg", [v("chaat-125", "125g", 230, 184, "/products/chaat-masala-125gram.jpg"), v("chaat-250", "250g", 380, 300, "/products/chaat-masala-250gram.jpg")], "Tangy and spicy seasoning mix", ["Chaat", "snacks"]),
+  product("macaroni-masala-powder", "Macaroni Masala", "Quick Seasonings", "/products/macaroni-masala-powder.jpg", [v("macaroni-125", "125g", 360, 288)], "For snack breaks with a little more flavour.", ["Pasta", "macaroni", "snacks"]),
+  product("fries-masala", "Fries Masala", "Quick Seasonings", "/products/fries-masala.jpg", [v("fries-125", "125g", 380, 304)], "For snack breaks with a little more flavour.", ["Fries", "potatoes", "snacks"]),
 ];
-export const priceLabel=(p:Product)=>p.price===null?"Price on request":`Rs. ${p.price.toLocaleString("en-PK")}`;
-// Keep price as the payable sale price; derive the reference price in paisa.
-export const originalPrice = (product: Product): number | null => product.price === null ? null : Math.round(product.price * 100 / 0.8) / 100;
+
+export function getSelectedVariant(product: Product, variantId?: string): ProductVariant {
+  return product.variants.find(variant => variant.id === variantId) ?? product.variants[0];
+}
+export function variantImage(product: Product, variant: ProductVariant): string {
+  return variant.image || product.image;
+}
+export function priceLabel(price: number): string {
+  return `Rs. ${price.toLocaleString("en-PK")}`;
+}
+export const originalPrice = (variant: ProductVariant): number => variant.originalPrice;
+export const discountPercent = (variant: ProductVariant): number => Math.round((variant.originalPrice - variant.salePrice) * 100 / variant.originalPrice);

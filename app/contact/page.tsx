@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/store-link";
 import { Mail, MessageCircle } from "lucide-react";
 import { site, whatsappReady } from "@/lib/config";
 

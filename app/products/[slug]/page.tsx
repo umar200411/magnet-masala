@@ -1,4 +1,27 @@
-import { ProductPrice } from "@/components/product-price";
-import Link from "next/link";import {ProductGallery} from "@/components/product-gallery";import {notFound} from "next/navigation";import {products} from "@/lib/catalog";import {ProductActions} from "@/components/product-actions";import {ProductCard} from "@/components/product-card";import {site} from "@/lib/config";
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=products.find(p=>p.slug===slug);return {title:p?.name||"Product not found",description:p?`${p.name}, ${p.weight}. ${p.shortDescription} Explore Magnet Masala and order through WhatsApp.`:undefined}}
-export default async function Page({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=products.find(p=>p.slug===slug);if(!p)notFound();return <main id="main" className="wrap page"><nav className="breadcrumb"><Link href="/">Home</Link> / <Link href="/shop">Shop</Link> / <span>{p.name}</span></nav><div className="detail-grid"><ProductGallery product={p}/><div className="detail-copy"><p className="eyebrow red">{p.category}</p><h1>{p.name}</h1><p className="weight">{p.weight}</p><p className="detail-price"><ProductPrice product={p}/></p><p>{p.shortDescription}</p><ProductActions id={p.id}/><p className="delivery-note">{site.deliveryNote}</p><details open><summary>Made for your menu</summary><p>Explore {p.name} from the Magnet Masala range.</p><div className="tags">{p.recommendedFor.map(t=><span key={t}>{t}</span>)}</div></details>{p.ingredients&&<details><summary>Ingredients</summary><p>{p.ingredients}</p></details>}{p.directions&&<details><summary>How to use</summary><p>{p.directions}</p></details>}{p.storageInformation&&<details><summary>Storage information</summary><p>{p.storageInformation}</p></details>}</div></div><section className="section"><div className="section-heading"><h2>More for your <em>kitchen.</em></h2><Link className="text-link" href="/shop">Explore the range</Link></div><div className="product-grid">{products.filter(r=>r.category===p.category&&r.id!==p.id).slice(0,4).map(r=><ProductCard key={r.id} product={r}/>)}</div></section></main>}
+import Link from "@/components/store-link";
+import { notFound } from "next/navigation";
+import { products } from "@/lib/catalog";
+import { ProductCard } from "@/components/product-card";
+import { ProductDetail } from "@/components/product-detail";
+import { RecentlyViewed } from "@/components/recently-viewed";
+
+const productPairs: Record<string, string[]> = {
+  "biryani-masala": ["garam-masala", "garlic-powder", "ginger-powder"],
+  "fries-masala": ["cheese-powder", "chaat-masala"],
+  "chicken-tikka-masala": ["chaat-masala", "garam-masala"],
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = products.find(item => item.slug === slug);
+  return { title: product?.name || "Product not found", description: product ? `${product.name}. ${product.shortDescription} Choose a pack size and order through WhatsApp.` : undefined };
+}
+
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = products.find(item => item.slug === slug);
+  if (!product) notFound();
+  const pairedIds = productPairs[product.id] ?? products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 4).map(item => item.id);
+  const pairedProducts = pairedIds.flatMap(id => { const related = products.find(item => item.id === id); return related && related.id !== product.id ? [related] : []; });
+  return <main id="main" className="wrap page"><nav className="breadcrumb"><Link href="/">Home</Link> / <Link href="/shop">Shop</Link> / <span>{product.name}</span></nav><div className="detail-grid"><ProductDetail product={product} /></div><RecentlyViewed currentId={product.id} /><section className="section related-section"><div className="section-heading"><h2>Pairs well with</h2><Link className="text-link" href="/shop">Explore the range</Link></div><div className="product-grid">{pairedProducts.map(item => <ProductCard key={item.id} product={item} />)}</div></section></main>;
+}

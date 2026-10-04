@@ -1,4 +1,4 @@
-import { products } from "./catalog";
+import { getSelectedVariant, products } from "./catalog";
 
 export const bundles = [
   { id: "bbq", name: "The BBQ set", occasion: "For the weekend grill", description: "Tikka, seekh kabab and a little extra warmth for your next gathering.", tone: "ember", ids: ["chicken-tikka-masala", "seekh-kabab-masala", "garam-masala"] },
@@ -15,5 +15,5 @@ export function bundleProducts(ids: readonly string[]) {
 }
 export function bundleTotal(ids: readonly string[]) {
   const selected = bundleProducts(ids);
-  return selected.some(product => product.price === null) ? null : selected.reduce((sum, product) => sum + product.price!, 0);
+  return selected.reduce((sum, product) => sum + getSelectedVariant(product).salePrice, 0);
 }

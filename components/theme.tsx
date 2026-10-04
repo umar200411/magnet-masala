@@ -10,7 +10,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  return <button type="button" aria-label="Toggle light or dark mode" title="Toggle light or dark mode" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+  const label = resolvedTheme === "light" ? "Switch to dark theme" : "Switch to light theme";
+  return <button className="theme-toggle" type="button" aria-label={label} title={label} onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}>
     <Sun className="theme-sun" aria-hidden="true" />
     <Moon className="theme-moon" aria-hidden="true" />
   </button>;

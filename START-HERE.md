@@ -1,6 +1,6 @@
 # Magnet Masala — source code handoff
 
-This archive contains the implemented storefront, all 14 supplied product photos, the brand logo, configuration, and the dependency lockfile.
+This archive contains the implemented storefront, supplied product photos (including available 250g pack images), the brand logo, configuration, and the dependency lockfile.
 
 ## Run locally
 
@@ -9,12 +9,12 @@ Requirements: Node.js 22.13 or newer and the pnpm version specified by packageMa
 1. Extract the ZIP and open the magnet-masala folder in VS Code or a terminal.
 2. Install dependencies: `pnpm install --frozen-lockfile`
 3. Copy `.env.example` to `.env.local`.
-4. The WhatsApp number defaults to +923492287799. Change `NEXT_PUBLIC_WHATSAPP_NUMBER` if needed.
+4. The WhatsApp number defaults to +923292200447. Change `NEXT_PUBLIC_WHATSAPP_NUMBER` if needed and confirm it before launch.
 5. Run `pnpm dev` and open http://localhost:5173.
 
 ## Edit the store
 
-- `lib/catalog.ts`: product names, categories, weights, descriptions and prices. All products have editable sample PKR prices; replace them with final prices before launch.
+- `lib/catalog.ts`: product names, categories, 125g/250g variants, descriptions, exact PKR prices, variant images and stock.
 - `lib/config.ts`: business details, delivery text, social links and WhatsApp configuration.
 - `lib/information.ts`: about, FAQ, privacy, terms and delivery copy.
 - `app/page.tsx`: homepage.

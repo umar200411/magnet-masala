@@ -1,14 +1,17 @@
 import { Bundles } from "@/components/bundles";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Sparkles, Flame, Leaf, ChefHat, MessageCircle } from "lucide-react";
-import { products, categories } from "@/lib/catalog";
+import Link from "@/components/store-link";
+import { ArrowRight, Sparkles, Flame, Leaf, ChefHat, MessageCircle, PackageCheck, ShoppingBasket } from "lucide-react";
+import { products } from "@/lib/catalog";
 import { ProductCard } from "@/components/product-card";
+import { HomepageMotion } from "@/components/homepage-motion";
+import { ProductImage } from "@/components/product-image";
 
-const categoryMeta = [
-  { icon: ChefHat, note: "Classic favourites, made easier", tone: "sun" },
-  { icon: Leaf, note: "Bright everyday kitchen essentials", tone: "lime" },
-  { icon: Flame, note: "Fast flavour for snack attacks", tone: "coral" },
+const cookingLinks = [
+  { name: "Biryani Night", note: "Rice dishes and weekend favourites", href: "/shop?search=biryani", icon: ChefHat, tone: "sun" },
+  { name: "BBQ & Grill", note: "Tikka, seekh kabab and bold blends", href: "/shop?search=BBQ", icon: Flame, tone: "lime" },
+  { name: "Everyday Cooking", note: "Kitchen staples for daily recipes", href: "/shop?category=Everyday%20Spices", icon: Leaf, tone: "coral" },
+  { name: "Snacks & Fries", note: "Quick seasonings for snack time", href: "/shop?search=snacks", icon: Sparkles, tone: "sun" },
+  { name: "Seafood", note: "Find the fish spice blend", href: "/shop?search=seafood", icon: Flame, tone: "coral" },
 ];
 
 export default function Home() {
@@ -37,14 +40,21 @@ export default function Home() {
             <span className="mm-stage-copy">BIG TASTE<br/>STARTS HERE</span>
             <div className="mm-ring mm-ring-a" />
             <div className="mm-ring mm-ring-b" />
-            <div className="mm-product mm-product-left"><Image src="/products/chicken-tikka-masala.jpg" alt="Chicken Tikka Masala" fill priority sizes="30vw" /></div>
-            <div className="mm-product mm-product-right"><Image src="/products/seekh-kabab-masala.jpg" alt="Seekh Kabab Masala" fill priority sizes="30vw" /></div>
-            <div className="mm-product mm-product-main"><Image src="/products/biryani-masala.jpg" alt="Biryani Masala" fill priority sizes="34vw" /></div>
+            <div className="mm-product mm-product-left"><ProductImage src="/products/chicken-tikka-masala.jpg" alt="Magnet Chicken Tikka Masala" fill priority sizes="30vw" /></div>
+            <div className="mm-product mm-product-right"><ProductImage src="/products/seekh-kabab-masala.jpg" alt="Magnet Seekh Kabab Masala" fill priority sizes="30vw" /></div>
+            <div className="mm-product mm-product-main"><ProductImage src="/products/biryani-masala.jpg" alt="Magnet Biryani Masala" fill priority sizes="34vw" /></div>
             <div className="mm-burst">100%<br/><b>FULL-ON</b><br/>FLAVOUR</div>
             <span className="mm-float-chip chip-one">Biryani night</span>
             <span className="mm-float-chip chip-two">BBQ plans</span>
           </div>
         </div>
+      </section>
+
+      <section className="mm-trust-strip wrap" aria-label="Shopping information">
+        <div><PackageCheck size={18} aria-hidden="true"/><span>125g and 250g packs where available</span></div>
+        <div><ShoppingBasket size={18} aria-hidden="true"/><span>Review your basket before ordering</span></div>
+        <div><MessageCircle size={18} aria-hidden="true"/><span>Order requests continue on WhatsApp</span></div>
+        <div><ArrowRight size={18} aria-hidden="true"/><span>Delivery details confirmed in chat</span></div>
       </section>
 
       <div className="mm-marquee" aria-hidden="true">
@@ -57,19 +67,18 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="categories" className="wrap mm-section mm-category-section">
+      <section id="categories" data-reveal className="wrap mm-section mm-category-section">
         <div className="mm-section-intro">
-          <p className="mm-kicker"><Sparkles size={14}/> Pick your mood</p>
+          <p className="mm-kicker"><Sparkles size={14}/> Shop by occasion</p>
           <h2>What are we cooking?</h2>
         </div>
         <div className="mm-category-grid">
-          {categories.map((category, i) => {
-            const meta = categoryMeta[i];
-            const Icon = meta.icon;
+          {cookingLinks.map((item, i) => {
+            const Icon = item.icon;
             return (
-              <Link key={category} className={`mm-category-card ${meta.tone}`} href={`/shop?category=${encodeURIComponent(category)}`}>
+              <Link key={item.name} className={`mm-category-card ${item.tone}`} href={item.href}>
                 <div className="mm-category-icon"><Icon size={28}/></div>
-                <div><span>0{i + 1}</span><h3>{category}</h3><p>{meta.note}</p></div>
+                <div><span>0{i + 1}</span><h3>{item.name}</h3><p>{item.note}</p></div>
                 <ArrowRight className="mm-card-arrow" size={22}/>
               </Link>
             );
@@ -77,7 +86,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mm-feature-band" id="featured">
+      <section data-reveal className="mm-feature-band" id="featured">
         <div className="wrap mm-section">
           <div className="mm-section-heading">
             <div><p className="mm-kicker"><Flame size={14}/> Featured blends</p><h2>Start with the <em>good stuff.</em></h2></div>
@@ -89,7 +98,7 @@ export default function Home() {
 
       <Bundles />
 
-      <section className="wrap mm-editorial">
+      <section data-reveal className="wrap mm-editorial">
         <div className="mm-editorial-copy">
           <p className="mm-kicker"><Leaf size={14}/> Everyday essentials</p>
           <h2>Your shelf should look <em>this alive.</em></h2>
@@ -99,12 +108,12 @@ export default function Home() {
         </div>
         <div className="mm-editorial-visual">
           <div className="mm-sun" />
-          <div className="mm-editorial-product"><Image src="/products/turmeric-powder.jpg" alt="Magnet Masala Turmeric Powder" fill sizes="(max-width:700px) 70vw, 35vw"/></div>
+          <div className="mm-editorial-product"><ProductImage src="/products/turmeric-powder.jpg" alt="Magnet Masala Turmeric Powder" fill sizes="(max-width:700px) 70vw, 35vw"/></div>
           <span className="mm-orbit orbit-one">golden</span><span className="mm-orbit orbit-two">earthy</span><span className="mm-orbit orbit-three">everyday</span>
         </div>
       </section>
 
-      <section className="wrap mm-section">
+      <section data-reveal className="wrap mm-section">
         <div className="mm-section-heading">
           <div><p className="mm-kicker"><Sparkles size={14}/> Fast flavour</p><h2>Snack time, but <em>better.</em></h2></div>
           <Link className="mm-text-link" href="/shop?category=Quick%20Seasonings">See quick seasonings <ArrowRight size={17}/></Link>
@@ -112,12 +121,13 @@ export default function Home() {
         <div className="snack-grid mm-product-grid">{snacks.map((p)=><ProductCard key={p.id} product={p}/>)}</div>
       </section>
 
-      <section className="wrap mm-ordering">
+      <section data-reveal className="wrap mm-ordering">
         <div className="mm-order-intro"><p className="mm-kicker"><MessageCircle size={14}/> Easy ordering</p><h2>Pick. Basket. <em>WhatsApp.</em></h2><p>Your favourite masalas are only a few taps away.</p></div>
         <div className="mm-steps">
           {[['01','Pick your favourites','Browse the range and add what you need.'],['02','Review your basket','Check quantities and delivery details.'],['03','Continue on WhatsApp','Send the prepared message and confirm your order.']].map(([n,t,d])=><div className="mm-step" key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></div>)}
         </div>
       </section>
+      <HomepageMotion />
     </main>
   );
 }
