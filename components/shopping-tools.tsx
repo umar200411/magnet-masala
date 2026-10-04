@@ -9,7 +9,7 @@ import { cartTotal } from "@/lib/cart";
 
 export function ShoppingTools() {
   const { items, ready } = useCart();
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 600);

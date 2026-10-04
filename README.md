@@ -1,6 +1,6 @@
 # Magnet Masala
 
-React/TypeScript storefront using Next App Router conventions on the existing Vinext/Vite and Cloudflare runtime. Orders are sent through WhatsApp; there is no order database or payment processor.
+React/TypeScript storefront using Next.js 16 static export for GitHub Pages. Vinext/Vite remains the development toolchain. Orders are sent through WhatsApp; there is no order database or payment processor.
 
 ## Configure the store
 
@@ -17,7 +17,7 @@ For multiple products, add items to the basket and use checkout. The final Whats
 
 ## Run and verify
 
-Use Node.js 22.13+ (Node.js 24 recommended by this project's tooling requirements) and the pnpm version in `package.json`.
+Use Node.js 22.13+ and the pnpm version in `package.json`. GitHub Actions installs Node 22 and the pinned pnpm version.
 
 ```sh
 pnpm install --frozen-lockfile
@@ -26,16 +26,28 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
-pnpm start
+pnpm preview
 ```
 
-Development listens on port 5173. `pnpm start` previews the compiled Cloudflare worker locally; it does not deploy the site. The tests verify single-item ordering, basket totals, message encoding, invalid quantities and catalog prices.
+Development listens on port 5173. `pnpm preview` serves only the static `out/` folder at http://127.0.0.1:4173. `pnpm start` is an alias for this optional local preview; production never needs a server process. The tests verify single-item ordering, basket totals, message encoding, invalid quantities and catalog prices.
 
 ## Deployment
 
-Keep the existing Sites deployment integration when publishing the existing Site. `.openai/hosting.json` identifies that Site; do not reuse its project ID for a separate project. The build emits `dist/server/wrangler.json` and client assets. For independently managed Cloudflare hosting, configure your account/worker settings and deploy the generated worker with Wrangler; other hosts require adapting this runtime first. This is not a plain static export or a stock `next start` project.
+`npm run build` uses the installed Next.js exporter with `output: "export"`, `trailingSlash: true`, and `images.unoptimized: true`. All 17 product routes are generated from `lib/catalog.ts`; the five information routes come from `lib/information.ts`. Shop query parameters are handled in the browser. Each page has an `index.html`, so direct navigation works without SPA rewrites. Local images use their original `/products/...jpg` URLs.
 
-Before launch, review the outstanding business policy/returns/delivery copy in `lib/information.ts`, verify the WhatsApp number and send a real test order from your phone. Supply environment overrides at build time. No live deployment or actual WhatsApp message is performed by local validation.
+Deploy **only `out/`**. It contains HTML, CSS, browser JavaScript, images, and static navigation data. `.next/` is a build workspace; any old `dist/server/` output belongs to the previous vinext build and must not be uploaded. No Node, Wrangler, Cloudflare Worker, image optimizer, API, database, or request-time rendering runs in production.
+
+The installed vinext beta exporter returns HTTP 308 responses during prerendering with directory-style routes. The production command therefore uses Next.js directly; vinext/Vite is retained for development. Cloudflare-related dependencies and legacy helper scripts are retained for compatibility but are not invoked by the build, preview, or Pages workflow. The unused ChatGPT auth and D1 database helpers have been removed.
+
+The build finishes by checking every expected HTML page, sitemap coverage, robots directives, original image bytes, `.nojekyll`, the branded `404.html`, and the absence of server artifacts from `out/`.
+
+Follow [GITHUB-PAGES.md](GITHUB-PAGES.md) to enable GitHub Actions publishing and point the Hostinger domain to GitHub Pages. `.github/workflows/deploy-pages.yml` installs the locked pnpm dependencies, typechecks, builds, uploads only `out/`, and deploys on pushes to `main` or a manual run. Existing `.openai/hosting.json` is historical metadata and is not used by this deployment.
+
+Set `SITE_URL` to your exact production origin (default: `https://magnetmasala.com`) in `.env.local` or as a GitHub Actions repository variable. This generates static SEO files at build time; it does not configure DNS or the Pages custom domain. There is no repository-name base path or asset prefix.
+
+Contact opens WhatsApp/email. Reviews prepare a WhatsApp/email message and require manual publication; they do not automatically appear on the website. Checkout generates its order message entirely in the browser. No external form backend is required. A customer must press Send in WhatsApp and receive confirmation from the business.
+
+Before launch, review business policy/returns/delivery copy in `lib/information.ts` and verify the WhatsApp destination. Preserve approved catalog prices and weights. Local validation does not send actual WhatsApp messages.
 
 ## Bundles
 
@@ -43,4 +55,4 @@ Curated sets live in `lib/bundles.ts`. Their estimated totals use the current ca
 
 The homepage keeps the product collection, curated sets and ordering guidance. Empty customer reviews and repeated menu links are not displayed. Customers can send feedback through the contact page.
 
-Search engines receive `/robots.txt` and `/sitemap.xml` from the deployment origin. Basket and checkout pages carry `noindex` metadata.
+Search engines receive static `/robots.txt` and `/sitemap.xml`, generated using `SITE_URL`. Basket and checkout pages carry `noindex` metadata.

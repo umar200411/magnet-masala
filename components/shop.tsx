@@ -2,11 +2,18 @@
 
 import { useMemo, useRef, useState } from "react";
 import Link from "@/components/store-link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, ArrowRight, X } from "lucide-react";
 import { products, categories, priceLabel, getSelectedVariant } from "@/lib/catalog";
 import { ProductImage } from "./product-image";
 import { ProductCard } from "./product-card";
+
+export function ShopFromUrl() {
+  const params = useSearchParams();
+  const query = params.get("search") || "";
+  const category = params.get("category") || "All";
+  return <Shop key={`${query}|${category}`} initialQuery={query} initialCategory={category} />;
+}
 
 function highlightMatch(text: string, query: string) {
   const index = text.toLowerCase().indexOf(query.toLowerCase());

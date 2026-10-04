@@ -5,6 +5,12 @@ import { ProductCard } from "@/components/product-card";
 import { ProductDetail } from "@/components/product-detail";
 import { RecentlyViewed } from "@/components/recently-viewed";
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return products.map(product => ({ slug: product.slug }));
+}
+
 const productPairs: Record<string, string[]> = {
   "biryani-masala": ["garam-masala", "garlic-powder", "ginger-powder"],
   "fries-masala": ["cheese-powder", "chaat-masala"],

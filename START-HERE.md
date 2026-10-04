@@ -34,12 +34,14 @@ Restart development after editing environment variables. Rebuild before publishi
 
 ## Runtime and hosting
 
-The source uses Next.js App Router conventions and React/TypeScript, running through Vinext/Vite with the Sites Cloudflare integration. This is the actual implementation, not a standalone stock Next.js export. For another hosting platform, adapt the runtime/deployment configuration to that platform; uploading these source files directly to ordinary static hosting will not run the application.
+Run `npm run build` to generate **`out/`**, the complete static website for GitHub Pages. Run `npm run preview` to verify it on a plain static HTTP server at http://127.0.0.1:4173. No Wrangler or production server is required.
 
-The included `.openai/hosting.json` identifies the existing private Magnet Masala Site. Preserve it when continuing that Site; do not reuse its project ID for a different Site.
+Production uses Next.js static export. Development retains Vinext/Vite. All product and information pages are built ahead of time; browser state handles shopping and checkout. See [GITHUB-PAGES.md](GITHUB-PAGES.md) for the workflow, Hostinger DNS records, and custom-domain setup.
+
+The included `.openai/hosting.json` is legacy metadata. GitHub Pages does not read it. Set `SITE_URL` to your production origin for static robots/sitemap output; URLs assume domain-root hosting.
 
 ## Before taking orders
 
-Confirm the WhatsApp number, review business policies and delivery details, and replace sample prices. The website prepares a message; the customer must send it and the business must confirm the order in WhatsApp. No payments or orders are stored by the website. Basket contents are stored only in the customer's browser.
+Confirm the WhatsApp number, review business policies and delivery details, and preserve the approved catalog prices and weights. The website prepares a message; the customer must send it and the business must confirm the order in WhatsApp. No payments or orders are stored by the website. Basket contents are stored only in the customer's browser.
 
 Dependencies, Git history, generated builds, runtime caches and credentials are excluded from this archive. The included .env.example documents the public WhatsApp number. See README.md for theme, direct ordering and deployment details.
