@@ -1,8 +1,9 @@
 import Link from "@/components/store-link";
 import { Mail, MessageCircle } from "lucide-react";
 import { site, whatsappReady } from "@/lib/config";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Contact" };
+export const metadata = pageMetadata("Contact", "Contact Magnet Masala on WhatsApp or email for product queries, pricing, orders and delivery details.", "/contact/");
 
 export default function Page() {
   return (

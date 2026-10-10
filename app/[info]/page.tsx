@@ -1,6 +1,7 @@
 import Link from "@/components/store-link";
 import { notFound } from "next/navigation";
 import { information } from "@/lib/information";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -10,7 +11,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ info: string }> }) {
   const { info } = await params;
-  return { title: (Object.hasOwn(information, info) ? information[info].title : undefined) || "Not found" };
+  const content = Object.hasOwn(information, info) ? information[info] : undefined;
+  return content ? pageMetadata(content.title, content.intro, `/${info}/`) : { title: "Not found" };
 }
 
 export default async function Page({ params }: { params: Promise<{ info: string }> }) {

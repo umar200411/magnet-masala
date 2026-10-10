@@ -120,13 +120,17 @@ export function Checkout() {
         {!review ? <form onSubmit={submitDetails}>
           <h2 ref={stepHeading} tabIndex={-1}>Where’s it going?</h2>
           <p className="muted">A few details, and you’re ready to continue.</p>
-          <div className="form-grid">{fields.map(([key, label, type, auto]) => <label className={key === "address" || key === "note" ? "full" : ""} key={key}>
+          <div className="form-grid">{fields.map(([key, label, type, auto]) => {
+            const invalid = Boolean(error) && key !== "note" && (key === "phone"
+              ? !/^[+\d\s()-]{7,22}$/.test(customer.phone) || customer.phone.replace(/\D/g, "").length < 7
+              : !customer[key].trim());
+            return <label className={key === "address" || key === "note" ? "full" : ""} key={key}>
             {label}
             {key === "address" || key === "note"
-              ? <textarea name={key} value={customer[key]} required={key !== "note"} maxLength={key === "note" ? 1000 : 600} autoComplete={auto} rows={3} onChange={event => setCustomer(previous => ({ ...previous, [key]: event.target.value }))} />
-              : <input name={key} type={type} required autoComplete={auto} maxLength={key === "phone" ? 22 : 100} value={customer[key]} onChange={event => setCustomer(previous => ({ ...previous, [key]: event.target.value }))} />}
-          </label>)}</div>
-          {error && <p role="alert" className="error">{error}</p>}
+              ? <textarea name={key} aria-invalid={invalid} aria-describedby={invalid ? "checkout-error" : undefined} value={customer[key]} required={key !== "note"} maxLength={key === "note" ? 1000 : 600} autoComplete={auto} rows={3} onChange={event => setCustomer(previous => ({ ...previous, [key]: event.target.value }))} />
+              : <input name={key} aria-invalid={invalid} aria-describedby={invalid ? "checkout-error" : undefined} type={type} required autoComplete={auto} maxLength={key === "phone" ? 22 : 100} value={customer[key]} onChange={event => setCustomer(previous => ({ ...previous, [key]: event.target.value }))} />}
+          </label>; })}</div>
+          {error && <p id="checkout-error" role="alert" className="error">{error}</p>}
           <p className="muted">Your details are used to prepare your WhatsApp message. <Link className="text-link" href="/privacy">Privacy information</Link></p>
           <button className="button" type="submit">Review your order <ArrowRight size={18} /></button>
         </form> : <div className="review">

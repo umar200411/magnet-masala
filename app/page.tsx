@@ -6,6 +6,8 @@ import { ProductCard } from "@/components/product-card";
 import { HomepageMotion } from "@/components/homepage-motion";
 import { ProductImage } from "@/components/product-image";
 
+export const metadata = { alternates: { canonical: "/" } };
+
 const cookingLinks = [
   { name: "Biryani Night", note: "Rice dishes and weekend favourites", href: "/shop?search=biryani", icon: ChefHat, tone: "sun" },
   { name: "BBQ & Grill", note: "Tikka, seekh kabab and bold blends", href: "/shop?search=BBQ", icon: Flame, tone: "lime" },
@@ -21,12 +23,16 @@ export default function Home() {
   return (
     <main id="main" className="bright-home">
       <section className="mm-hero">
-        <div className="mm-hero-bg mm-blob-one" />
-        <div className="mm-hero-bg mm-blob-two" />
+        <div className="mm-hero-bg mm-blob-one" aria-hidden="true" />
+        <div className="mm-hero-bg mm-blob-two" aria-hidden="true" />
         <div className="wrap mm-hero-grid">
           <div className="mm-hero-copy reveal-up">
             <div className="mm-kicker"><Sparkles size={15}/> Made for loud, happy food</div>
             <h1>Turn up the <span>flavour.</span></h1>
+            <div className="mm-hero-offer">
+              <strong className="mm-hero-offer-value">20% OFF</strong>
+              <span className="mm-hero-offer-label">Limited Offer</span>
+            </div>
             <p className="mm-lead">Recipe blends, everyday spices and snack seasonings for the dishes your table already loves.</p>
             <div className="mm-actions">
               <Link className="mm-button mm-button-dark" href="/shop">Explore the range <ArrowRight size={18}/></Link>
@@ -37,13 +43,17 @@ export default function Home() {
           </div>
 
           <div className="mm-hero-stage reveal-scale">
-            <span className="mm-stage-copy">BIG TASTE<br/>STARTS HERE</span>
-            <div className="mm-ring mm-ring-a" />
-            <div className="mm-ring mm-ring-b" />
-            <div className="mm-product mm-product-left"><ProductImage src="/products/chicken-tikka-masala.jpg" alt="Magnet Chicken Tikka Masala" fill priority sizes="30vw" /></div>
-            <div className="mm-product mm-product-right"><ProductImage src="/products/seekh-kabab-masala.jpg" alt="Magnet Seekh Kabab Masala" fill priority sizes="30vw" /></div>
-            <div className="mm-product mm-product-main"><ProductImage src="/products/biryani-masala.jpg" alt="Magnet Biryani Masala" fill priority sizes="34vw" /></div>
+            <span className="mm-stage-copy" aria-hidden="true">BIG TASTE<br/>STARTS HERE</span>
+            <div className="mm-ring mm-ring-a" aria-hidden="true" />
+            <div className="mm-ring mm-ring-b" aria-hidden="true" />
+            <div className="mm-product mm-product-left"><ProductImage src="/products/chicken-tikka-masala.jpg" alt="Magnet Chicken Tikka Masala" fill priority sizes="(max-width:700px) 43vw, (max-width:1000px) 22vw, (max-width:1490px) 20vw, 275px" /></div>
+            <div className="mm-product mm-product-right"><ProductImage src="/products/seekh-kabab-masala.jpg" alt="Magnet Seekh Kabab Masala" fill priority sizes="(max-width:700px) 43vw, (max-width:1000px) 22vw, (max-width:1490px) 20vw, 275px" /></div>
+            <div className="mm-product mm-product-main"><ProductImage src="/products/biryani-masala.jpg" alt="Magnet Biryani Masala" fill priority sizes="(max-width:700px) 58vw, (max-width:1000px) 28vw, (max-width:1490px) 24vw, 345px" /></div>
             <div className="mm-burst">100%<br/><b>FULL-ON</b><br/>FLAVOUR</div>
+            <div className="mm-burst mm-burst-offer">
+              <strong>20% OFF</strong>
+              <span>LIMITED OFFER</span>
+            </div>
             <span className="mm-float-chip chip-one">Biryani night</span>
             <span className="mm-float-chip chip-two">BBQ plans</span>
           </div>
@@ -113,7 +123,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section data-reveal className="wrap mm-section">
+      <section data-reveal className="wrap mm-section mm-snack-section">
         <div className="mm-section-heading">
           <div><p className="mm-kicker"><Sparkles size={14}/> Fast flavour</p><h2>Snack time, but <em>better.</em></h2></div>
           <Link className="mm-text-link" href="/shop?category=Quick%20Seasonings">See quick seasonings <ArrowRight size={17}/></Link>
